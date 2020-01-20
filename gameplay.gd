@@ -1,11 +1,19 @@
 extends Spatial
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-var eyesOpen
-var eyesClosed
+var levels = [
+"""{
+	"map": [
+		"  C      ",
+		"[  [    [",
+		"-] S<CDE[",
+		" ] C[    ",
+		"         ",
+		"[   [    "
+	],
+	"cmds": "[>]{E>",
+	"bells": "CDECCDECC",
+}"""
+]
 
 enum Cmd {
 	Empty, Right, Left, RightIf,
@@ -14,76 +22,136 @@ enum Cmd {
 	BellF, BellG, BellA, BellB }
 
 func addCmd(cmd, x, y):
-	var mesh = MeshInstance.new()
+	var mesh
 	match cmd:
 		Cmd.Empty:
-			mesh.mesh = load("res://cmd 00 empty.mesh");
+			mesh = $CmdEmpty.duplicate()
 		Cmd.Right:
-			mesh.mesh = load("res://cmd 01 right.mesh");
+			mesh = $CmdRight.duplicate()
 		Cmd.Left:
-			mesh.mesh = load("res://cmd 02 left.mesh");
+			mesh = $CmdLeft.duplicate()
 		Cmd.RightIf:
-			mesh.mesh = load("res://cmd 03 right if.mesh");
+			mesh = $CmdRightIf.duplicate()
 		Cmd.LeftIf:
-			mesh.mesh = load("res://cmd 04 left if.mesh");
+			mesh = $CmdLeftIf.duplicate()
 		Cmd.Take:
-			mesh.mesh = load("res://cmd 05 take.mesh");
+			mesh = $CmdTake.duplicate()
 		Cmd.Put:
-			mesh.mesh = load("res://cmd 06 put.mesh");
+			mesh = $CmdPut.duplicate()
 		Cmd.Inc:
-			mesh.mesh = load("res://cmd 07 inc.mesh");
+			mesh = $CmdInc.duplicate()
 		Cmd.Dec:
-			mesh.mesh = load("res://cmd 08 dec.mesh");
+			mesh = $CmdDec.duplicate()
 		Cmd.BellC:
-			mesh.mesh = load("res://cmd 09 bell C.mesh");
+			mesh = $CmdBellC.duplicate()
 		Cmd.BellD:
-			mesh.mesh = load("res://cmd 10 bell D.mesh");
+			mesh = $CmdBellD.duplicate()
 		Cmd.BellE:
-			mesh.mesh = load("res://cmd 11 bell E.mesh");
+			mesh = $CmdBellE.duplicate()
 		Cmd.BellF:
-			mesh.mesh = load("res://cmd 12 bell F.mesh");
+			mesh = $CmdBellF.duplicate()
 		Cmd.BellG:
-			mesh.mesh = load("res://cmd 13 bell G.mesh");
+			mesh = $CmdBellG.duplicate()
 		Cmd.BellA:
-			mesh.mesh = load("res://cmd 14 bell A.mesh");
+			mesh = $CmdBellA.duplicate()
 		Cmd.BellB:
-			mesh.mesh = load("res://cmd 15 bell B.mesh");
+			mesh = $CmdBellB.duplicate()
+	mesh.visible = true
 	mesh.translation.x = x
+	mesh.translation.y = 0
 	mesh.translation.z = y
 	add_child(mesh)
+	return mesh
 
+var currentLevel = []
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	eyesOpen = MeshInstance.new()
-	eyesOpen.mesh = load("res://eyes open.mesh")
-	eyesClosed = MeshInstance.new()
-	eyesClosed.mesh = load("res://eyes closed.mesh")
-	eyesClosed.visible = false
-	var bellD = MeshInstance.new()
-	bellD.add_child(eyesOpen)
-	bellD.add_child(eyesClosed)
-	bellD.mesh = load("res://bell C.mesh")
-	bellD.translation.x = -3
-	bellD.translation.y = 2
-	bellD.translation.z = -4.5
-	bellD.rotate_y(-PI / 2)
-	$Camera.add_child(bellD)
-	for x in range(1, 10):
-		for y in range(1, 10):
-			addCmd(Cmd.Empty, x, y)
+	var level = JSON.parse(levels[0])
+	if level.error != OK:
+		print("JSON parese error ", level.error_string)
+		return
+	var bellPos = 0
+	for bellColor in level.result.bells:
+		var bell = $Camera/Bell.duplicate()
+		match bellColor:
+			"C":
+				bell.mesh = load("res://bell C.mesh")
+			"D":
+				bell.mesh = load("res://bell D.mesh")
+			"E":
+				bell.mesh = load("res://bell E.mesh")
+			"F":
+				bell.mesh = load("res://bell F.mesh")
+			"G":
+				bell.mesh = load("res://bell G.mesh")
+			"A":
+				bell.mesh = load("res://bell A.mesh")
+			"B":
+				bell.mesh = load("res://bell B.mesh")
+		bell.visible = true
+		bell.translate(Vector3(0, 0, -bellPos))
+		bellPos += 1
+		$Camera.add_child(bell)
+	currentLevel.clear()
+	var y = 0
+	for line in level.result.map:
+		var x = 0
+		var raw = []
+		for c in line:
+			var cmd
+			match c:
+				" ":
+					cmd = Cmd.Empty
+				"]":
+					cmd = Cmd.Right
+				"[":
+					cmd = Cmd.Left
+				"}":
+					cmd = Cmd.RightIf
+				"{":
+					cmd = Cmd.LeftIf
+				"<":
+					cmd = Cmd.Take
+				">":
+					cmd = Cmd.Put
+				"+":
+					cmd = Cmd.Inc
+				"-":
+					cmd = Cmd.Dec
+				"C":
+					cmd = Cmd.BellC
+				"D":
+					cmd = Cmd.BellD
+				"E":
+					cmd = Cmd.BellE
+				"F":
+					cmd = Cmd.BellF
+				"G":
+					cmd = Cmd.BellG
+				"A":
+					cmd = Cmd.BellA
+				"B":
+					cmd = Cmd.BellB
+				"S":
+					cmd = Cmd.Empty
+					$Car.translation.x = x
+					$Car.translation.z = y
+			raw.append(addCmd(cmd, x, y))
+			x += 1
+		currentLevel.append(raw)
+		y += 1
+		execCommand()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	var camSpeed = 2
-	if Input.is_action_pressed("ui_right"):
-		$Camera.translation.z -= camSpeed * delta
-	if Input.is_action_pressed("ui_left"):
-		$Camera.translation.z += camSpeed * delta
-	if Input.is_action_pressed("ui_down"):
-		$Camera.translation.x += camSpeed * delta
-	if Input.is_action_pressed("ui_up"):
-		$Camera.translation.x -= camSpeed * delta
+func execCommand():
+	var x = round($Car.translation.x)
+	var y = round($Car.translation.z)
+	if y >= currentLevel.size():
+		$Car.moveForward()
+		return
+	if x >= currentLevel[y].size():
+		$Car.moveForward()
+	var cmd = currentLevel[y][x]
+	cmd.exec($Car)
 
-func _on_Timer_timeout():
-	eyesOpen.visible = !eyesOpen.visible
-	eyesClosed.visible = !eyesClosed.visible
+func _on_Car_animation_ended():
+	execCommand()
