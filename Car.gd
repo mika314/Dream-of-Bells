@@ -18,7 +18,6 @@ class MoveForward:
 			car.translation = dest
 			return false
 		return true
-		
 
 class Rotate:
 	var CAR_ROTATION_SPEED = 1
@@ -58,9 +57,28 @@ func rotateRight():
 func moveForward():
 	animation = MoveForward.new(self)
 
+#warning-ignore:unused_class_variable
+var roof = Cmd.Empty
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if animation:
 		if !animation.run(delta):
 			animation = null
 			emit_signal("animation_ended")
+
+func getForwardRightCoord():
+	var dir = Vector3(0, 0, -1)
+	dir = dir.rotated(Vector3(0, 1, 0), rotation.y)
+	var dest = translation + dir
+	dir = dir.rotated(Vector3(0, 1, 0), -PI / 2)
+	dest = dest + dir
+	return Vector2(round(dest.x), round(dest.z))
+
+func inc():
+# todo
+	pass
+
+func dec():
+# todo
+	pass

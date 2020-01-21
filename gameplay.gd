@@ -4,7 +4,7 @@ var levels = [
 """{
 	"map": [
 		"  C      ",
-		"[  [    [",
+		"[  {    [",
 		"-] S<CDE[",
 		" ] C[    ",
 		"         ",
@@ -15,55 +15,50 @@ var levels = [
 }"""
 ]
 
-enum Cmd {
-	Empty, Right, Left, RightIf,
-	LeftIf, Take, Put, Inc,
-	Dec, BellC, BellD, BellE,
-	BellF, BellG, BellA, BellB }
-
 func addCmd(cmd, x, y):
-	var mesh
+	var cmdBlock
 	match cmd:
 		Cmd.Empty:
-			mesh = $CmdEmpty.duplicate()
+			cmdBlock = $CmdEmpty.duplicate()
 		Cmd.Right:
-			mesh = $CmdRight.duplicate()
+			cmdBlock = $CmdRight.duplicate()
 		Cmd.Left:
-			mesh = $CmdLeft.duplicate()
+			cmdBlock = $CmdLeft.duplicate()
 		Cmd.RightIf:
-			mesh = $CmdRightIf.duplicate()
+			cmdBlock = $CmdRightIf.duplicate()
 		Cmd.LeftIf:
-			mesh = $CmdLeftIf.duplicate()
+			cmdBlock = $CmdLeftIf.duplicate()
 		Cmd.Take:
-			mesh = $CmdTake.duplicate()
+			cmdBlock = $CmdTake.duplicate()
 		Cmd.Put:
-			mesh = $CmdPut.duplicate()
+			cmdBlock = $CmdPut.duplicate()
 		Cmd.Inc:
-			mesh = $CmdInc.duplicate()
+			cmdBlock = $CmdInc.duplicate()
 		Cmd.Dec:
-			mesh = $CmdDec.duplicate()
+			cmdBlock = $CmdDec.duplicate()
 		Cmd.BellC:
-			mesh = $CmdBellC.duplicate()
+			cmdBlock = $CmdBellC.duplicate()
 		Cmd.BellD:
-			mesh = $CmdBellD.duplicate()
+			cmdBlock = $CmdBellD.duplicate()
 		Cmd.BellE:
-			mesh = $CmdBellE.duplicate()
+			cmdBlock = $CmdBellE.duplicate()
 		Cmd.BellF:
-			mesh = $CmdBellF.duplicate()
+			cmdBlock = $CmdBellF.duplicate()
 		Cmd.BellG:
-			mesh = $CmdBellG.duplicate()
+			cmdBlock = $CmdBellG.duplicate()
 		Cmd.BellA:
-			mesh = $CmdBellA.duplicate()
+			cmdBlock = $CmdBellA.duplicate()
 		Cmd.BellB:
-			mesh = $CmdBellB.duplicate()
-	mesh.visible = true
-	mesh.translation.x = x
-	mesh.translation.y = 0
-	mesh.translation.z = y
-	add_child(mesh)
-	return mesh
+			cmdBlock = $CmdBellB.duplicate()
+	cmdBlock.visible = true
+	cmdBlock.translation.x = x
+	cmdBlock.translation.y = 0
+	cmdBlock.translation.z = y
+	add_child(cmdBlock)
+	return cmdBlock
 
-var currentLevel = []
+var currentLevel = {}
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var level = JSON.parse(levels[0])
@@ -73,21 +68,7 @@ func _ready():
 	var bellPos = 0
 	for bellColor in level.result.bells:
 		var bell = $Camera/Bell.duplicate()
-		match bellColor:
-			"C":
-				bell.mesh = load("res://bell C.mesh")
-			"D":
-				bell.mesh = load("res://bell D.mesh")
-			"E":
-				bell.mesh = load("res://bell E.mesh")
-			"F":
-				bell.mesh = load("res://bell F.mesh")
-			"G":
-				bell.mesh = load("res://bell G.mesh")
-			"A":
-				bell.mesh = load("res://bell A.mesh")
-			"B":
-				bell.mesh = load("res://bell B.mesh")
+		bell.mesh = load("res://bell " + bellColor + ".mesh")
 		bell.visible = true
 		bell.translate(Vector3(0, 0, -bellPos))
 		bellPos += 1
@@ -96,7 +77,7 @@ func _ready():
 	var y = 0
 	for line in level.result.map:
 		var x = 0
-		var raw = []
+		var raw = {}
 		for c in line:
 			var cmd
 			match c:
@@ -136,22 +117,30 @@ func _ready():
 					cmd = Cmd.Empty
 					$Car.translation.x = x
 					$Car.translation.z = y
-			raw.append(addCmd(cmd, x, y))
+			raw[x] = addCmd(cmd, x, y)
 			x += 1
-		currentLevel.append(raw)
+		currentLevel[y] = raw
 		y += 1
-		execCommand()
+	execCommand()
+
+func getCmd(x:int, y:int):
+	if !currentLevel.has(y):
+		return null
+	var raw = currentLevel[y]
+	if !raw.has(x):
+		return null
+	return raw[x]
 
 func execCommand():
 	var x = round($Car.translation.x)
 	var y = round($Car.translation.z)
-	if y >= currentLevel.size():
-		$Car.moveForward()
-		return
-	if x >= currentLevel[y].size():
-		$Car.moveForward()
-	var cmd = currentLevel[y][x]
-	cmd.exec($Car)
+	
+	var cmd = getCmd(x, y)
+	var tmpCoord = $Car.getForwardRightCoord()
+	var cmdForwardRight = getCmd(tmpCoord.x, tmpCoord.y)
+	if cmd:
+		cmd.exec($Car, cmdForwardRight)
 
 func _on_Car_animation_ended():
 	execCommand()
+

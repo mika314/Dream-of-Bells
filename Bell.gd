@@ -8,10 +8,6 @@ func _ready():
 	eyesClosed = $"Eyes Closed"
 	$TimerClose.start()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
 func _on_TimerClose_timeout():
 	eyesOpen.visible = false
 	eyesClosed.visible = true

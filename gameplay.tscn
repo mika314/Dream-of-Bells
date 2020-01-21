@@ -213,6 +213,7 @@ mesh = ExtResource( 33 )
 material/0 = null
 material/1 = null
 script = ExtResource( 34 )
+cmd = 9
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="CmdBellC"]
 stream = ExtResource( 35 )
@@ -225,6 +226,7 @@ mesh = ExtResource( 36 )
 material/0 = null
 material/1 = null
 script = ExtResource( 34 )
+cmd = 10
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="CmdBellD"]
 stream = ExtResource( 37 )
@@ -237,6 +239,7 @@ mesh = ExtResource( 38 )
 material/0 = null
 material/1 = null
 script = ExtResource( 34 )
+cmd = 11
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="CmdBellE"]
 stream = ExtResource( 39 )
@@ -249,6 +252,7 @@ mesh = ExtResource( 40 )
 material/0 = null
 material/1 = null
 script = ExtResource( 34 )
+cmd = 12
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="CmdBellF"]
 stream = ExtResource( 41 )
@@ -261,6 +265,7 @@ mesh = ExtResource( 42 )
 material/0 = null
 material/1 = null
 script = ExtResource( 34 )
+cmd = 13
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="CmdBellG"]
 stream = ExtResource( 43 )
@@ -273,6 +278,7 @@ mesh = ExtResource( 44 )
 material/0 = null
 material/1 = null
 script = ExtResource( 34 )
+cmd = 14
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="CmdBellA"]
 stream = ExtResource( 45 )
@@ -285,6 +291,7 @@ mesh = ExtResource( 46 )
 material/0 = null
 material/1 = null
 script = ExtResource( 34 )
+cmd = 15
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="CmdBellB"]
 stream = ExtResource( 47 )
