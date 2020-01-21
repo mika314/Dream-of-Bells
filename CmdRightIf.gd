@@ -6,8 +6,8 @@ func _ready():
 
 #warning-ignore:unused_argument
 func exec(car, cmdForwardRight):
-	var cmd = cmdForwardRight.cmd if cmdForwardRight else Cmd.Empty
-	if cmd == car.roof:
+	var tmpCmd = cmdForwardRight.cmd if cmdForwardRight else Cmd.Empty
+	if tmpCmd == car.roof:
 		car.moveForward()
 	else:
 		car.rotateRight()

@@ -4,7 +4,7 @@ var levels = [
 """{
 	"map": [
 		"  C      ",
-		"[  {    [",
+		"[  [    [",
 		"-] S<CDE[",
 		" ] C[    ",
 		"         ",
@@ -57,6 +57,7 @@ func addCmd(cmd, x, y):
 	add_child(cmdBlock)
 	return cmdBlock
 
+var bells = []
 var currentLevel = {}
 
 # Called when the node enters the scene tree for the first time.
@@ -71,8 +72,24 @@ func _ready():
 		bell.mesh = load("res://bell " + bellColor + ".mesh")
 		bell.visible = true
 		bell.translate(Vector3(0, 0, -bellPos))
+		match bellColor:
+			"C":
+				  bell.cmd = Cmd.BellC
+			"D":
+				  bell.cmd = Cmd.BellD
+			"E":
+				  bell.cmd = Cmd.BellE
+			"F":
+				  bell.cmd = Cmd.BellF
+			"G":
+				  bell.cmd = Cmd.BellG
+			"A":
+				  bell.cmd = Cmd.BellA
+			"B":
+				  bell.cmd = Cmd.BellB
 		bellPos += 1
 		$Camera.add_child(bell)
+		bells.append(bell)
 	currentLevel.clear()
 	var y = 0
 	for line in level.result.map:
@@ -134,7 +151,6 @@ func getCmd(x:int, y:int):
 func execCommand():
 	var x = round($Car.translation.x)
 	var y = round($Car.translation.z)
-	
 	var cmd = getCmd(x, y)
 	var tmpCoord = $Car.getForwardRightCoord()
 	var cmdForwardRight = getCmd(tmpCoord.x, tmpCoord.y)
@@ -144,3 +160,19 @@ func execCommand():
 func _on_Car_animation_ended():
 	execCommand()
 
+func getFirstSleepingBell():
+	for bell in bells:
+		if bell.isSleeping:
+			return bell
+	return null
+
+func _on_CmdBell_bellRing(cmd):
+	var sleepingBell = getFirstSleepingBell()
+	if cmd == sleepingBell.cmd:
+		sleepingBell.wakeUp()
+	else:
+		gameOver()
+
+func gameOver():
+	print("game over")
+	#todo

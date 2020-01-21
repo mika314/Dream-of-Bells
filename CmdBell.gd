@@ -4,10 +4,13 @@ extends MeshInstance
 func _ready():
 	$AudioStreamPlayer3D.stream.loop = false
 
+signal bellRing
+
 #warning-ignore:unused_argument
 func exec(car, cmdForwardRight):
 	$AudioStreamPlayer3D.play()
 	car.moveForward()
+	emit_signal("bellRing", cmd)
 
 #warning-ignore:unused_class_variable
 export var cmd = Cmd.Empty

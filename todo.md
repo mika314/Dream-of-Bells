@@ -6,16 +6,16 @@
   - [x] Left
   - [x] RightIf
   - [x] LeftIf
-  - [ ] Take
-  - [ ] Put
+  - [x] BellC
+  - [x] BellD
+  - [x] BellE
+  - [x] BellF
+  - [x] BellG
+  - [x] BellA
+  - [x] BellB
   - [ ] Inc
   - [ ] Dec
-  - [ ] BellC
-  - [ ] BellD
-  - [ ] BellE
-  - [ ] BellF
-  - [ ] BellG
-  - [ ] BellA
-  - [ ] BellB
+  - [ ] Take
+  - [ ] Put
 
 - [ ] make car wheels to rotate

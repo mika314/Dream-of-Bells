@@ -5,7 +5,7 @@ func _ready():
 	$AudioStreamPlayer3D.stream.loop = false
 
 #warning-ignore:unused_argument
-func exec(car, frontRightCmd):
+func exec(car, cmdForwardRight):
 	var cmd = cmdForwardRight.cmd if cmdForwardRight else Cmd.Empty
 	if cmd == car.roof:
 		car.moveForward()

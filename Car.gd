@@ -59,13 +59,20 @@ func moveForward():
 
 #warning-ignore:unused_class_variable
 var roof = Cmd.Empty
-	
+
+var toggle = true
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if animation:
 		if !animation.run(delta):
 			animation = null
 			emit_signal("animation_ended")
+	if Input.is_action_pressed("ui_accept"):
+		if toggle:
+			$OnRoofCmd/AnimationPlayer.play("rest")
+		else:
+			$OnRoofCmd/AnimationPlayer.play("jump on  the roof")
+		toggle = !toggle
 
 func getForwardRightCoord():
 	var dir = Vector3(0, 0, -1)
