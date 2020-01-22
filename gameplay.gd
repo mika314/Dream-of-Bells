@@ -1,21 +1,31 @@
 extends Spatial
 
 var levels = [
-"""{
-	"map": [
-		"  C      ",
-		"[  [    [",
-		"-] S<CDE[",
-		" ] C[    ",
-		"         ",
-		"[   [    "
-	],
-	"cmds": "[>]{E>",
-	"bells": "CDECCDECC",
-}"""
+"""
+{
+  "map": [
+      "  GE]C]",
+      "]>S<{ -",
+      "    CCE",
+      "    ] ]",
+  ],
+  "cmds": "",
+  "bells": "CECEG"
+}
+""",
+"""
+{
+  "map": [
+    "]S<+ >+ >+ >+ > ]",
+    "] >C-> -> -> -> ]"
+  ],
+  "cmds": "GFE",
+  "bells": "GFEDCCDEFG"
+}
+""",
 ]
 
-func addCmd(cmd, x, y):
+func addCmd(cmd, x:int, y:int):
 	var cmdBlock
 	match cmd:
 		Cmd.Empty:
@@ -55,7 +65,11 @@ func addCmd(cmd, x, y):
 	cmdBlock.translation.y = 0
 	cmdBlock.translation.z = y
 	add_child(cmdBlock)
-	return cmdBlock
+	if !currentLevel.has(y):
+		currentLevel[y] = {}
+	if currentLevel[y].has(x):
+		currentLevel[y][x].queue_free()
+	currentLevel[y][x] = cmdBlock
 
 var bells = []
 var currentLevel = {}
@@ -94,7 +108,6 @@ func _ready():
 	var y = 0
 	for line in level.result.map:
 		var x = 0
-		var raw = {}
 		for c in line:
 			var cmd
 			match c:
@@ -134,9 +147,8 @@ func _ready():
 					cmd = Cmd.Empty
 					$Car.translation.x = x
 					$Car.translation.z = y
-			raw[x] = addCmd(cmd, x, y)
+			addCmd(cmd, x, y)
 			x += 1
-		currentLevel[y] = raw
 		y += 1
 	execCommand()
 
@@ -155,7 +167,19 @@ func execCommand():
 	var tmpCoord = $Car.getForwardRightCoord()
 	var cmdForwardRight = getCmd(tmpCoord.x, tmpCoord.y)
 	if cmd:
-		cmd.exec($Car, cmdForwardRight)
+		var roof = $Car.roof
+		var res = cmd.exec($Car, cmdForwardRight)
+		if cmd.cmd == Cmd.Put:
+			addCmd(roof, tmpCoord.x, tmpCoord.y)
+		elif cmd.cmd == Cmd.LeftIf || cmd.cmd == Cmd.RightIf:
+			if res:
+				$Eq.translation.x = tmpCoord.x
+				$Eq.translation.z = tmpCoord.y
+				$Eq/AnimationPlayer.play("Flash")
+			else:
+				$Neq.translation.x = tmpCoord.x
+				$Neq.translation.z = tmpCoord.y
+				$Neq/AnimationPlayer.play("Flash")
 
 func _on_Car_animation_ended():
 	execCommand()
@@ -168,7 +192,7 @@ func getFirstSleepingBell():
 
 func _on_CmdBell_bellRing(cmd):
 	var sleepingBell = getFirstSleepingBell()
-	if cmd == sleepingBell.cmd:
+	if sleepingBell && cmd == sleepingBell.cmd:
 		sleepingBell.wakeUp()
 	else:
 		gameOver()

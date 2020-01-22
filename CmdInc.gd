@@ -8,7 +8,6 @@ func _ready():
 func exec(car, cmdForwardRight):
 	$AudioStreamPlayer3D.play()
 	car.inc()
-	car.moveForward()
 
 #warning-ignore:unused_class_variable
 export var cmd = Cmd.Inc

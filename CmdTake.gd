@@ -7,7 +7,7 @@ func _ready():
 #warning-ignore:unused_argument
 func exec(car, cmdForwardRight):
 	$AudioStreamPlayer3D.play()
-	car.moveForward()
+	car.take(cmdForwardRight)
 
 #warning-ignore:unused_class_variable
 export var cmd = Cmd.Take

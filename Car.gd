@@ -42,10 +42,27 @@ class Rotate:
 			car.rotation.y -= CAR_ROTATION_SPEED * delta
 		return true
 
+var onRoofMeshes = {}
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-	
+	onRoofMeshes[Cmd.Empty] = MeshInstance.new()
+	onRoofMeshes[Cmd.Right] = load("res://roof 01 right.mesh")
+	onRoofMeshes[Cmd.Left] = load("res://roof 02 left.mesh")
+	onRoofMeshes[Cmd.RightIf] = load("res://roof 03 right if.mesh")
+	onRoofMeshes[Cmd.LeftIf] = load("res://roof 04 left if.mesh")
+	onRoofMeshes[Cmd.Take] = load("res://roof 05 take.mesh")
+	onRoofMeshes[Cmd.Put] = load("res://roof 06 put.mesh")
+	onRoofMeshes[Cmd.Inc] = load("res://roof 07 inc.mesh")
+	onRoofMeshes[Cmd.Dec] = load("res://roof 08 dec.mesh")
+	onRoofMeshes[Cmd.BellC] = load("res://roof 09 bell C.mesh")
+	onRoofMeshes[Cmd.BellD] = load("res://roof 10 bell D.mesh")
+	onRoofMeshes[Cmd.BellE] = load("res://roof 11 bell E.mesh")
+	onRoofMeshes[Cmd.BellF] = load("res://roof 12 bell F.mesh")
+	onRoofMeshes[Cmd.BellG] = load("res://roof 13 bell G.mesh")
+	onRoofMeshes[Cmd.BellA] = load("res://roof 14 bell A.mesh")
+	onRoofMeshes[Cmd.BellB] = load("res://roof 15 bell B.mesh")
+
 signal animation_ended
 
 func rotateLeft():
@@ -60,19 +77,12 @@ func moveForward():
 #warning-ignore:unused_class_variable
 var roof = Cmd.Empty
 
-var toggle = true
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if animation:
 		if !animation.run(delta):
 			animation = null
 			emit_signal("animation_ended")
-	if Input.is_action_pressed("ui_accept"):
-		if toggle:
-			$OnRoofCmd/AnimationPlayer.play("rest")
-		else:
-			$OnRoofCmd/AnimationPlayer.play("jump on  the roof")
-		toggle = !toggle
 
 func getForwardRightCoord():
 	var dir = Vector3(0, 0, -1)
@@ -83,9 +93,65 @@ func getForwardRightCoord():
 	return Vector2(round(dest.x), round(dest.z))
 
 func inc():
-# todo
-	pass
+	moveForward()
+	roof += 1
+	roof %= 16
+	$OnRoofCmd.mesh = onRoofMeshes[roof]
+	playRestAnim()
 
 func dec():
-# todo
-	pass
+	moveForward()
+	roof += 15
+	roof %= 16
+	$OnRoofCmd.mesh = onRoofMeshes[roof]
+	playRestAnim()
+
+func take(cmd):
+	moveForward()
+	roof = cmd.cmd if cmd else Cmd.Empty
+	$OnRoofCmd.mesh = onRoofMeshes[roof]
+	$OnRoofCmd/AnimationPlayer.play("jump on the roof")
+
+func put():
+	moveForward()
+	$OnRoofCmd/AnimationPlayer.play("jump from the roof")
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name == "jump from the roof":
+		$OnRoofCmd.mesh = onRoofMeshes[roof]
+	playRestAnim()
+
+func playRestAnim():
+	match roof:
+		Cmd.Empty:
+			$OnRoofCmd/AnimationPlayer.play("rest")
+		Cmd.Right:
+			$OnRoofCmd/AnimationPlayer.play("right")
+		Cmd.Left:
+			$OnRoofCmd/AnimationPlayer.play("left")
+		Cmd.RightIf:
+			$OnRoofCmd/AnimationPlayer.play("rest")
+		Cmd.LeftIf:
+			$OnRoofCmd/AnimationPlayer.play("rest")
+		Cmd.Take:
+			$OnRoofCmd/AnimationPlayer.play("rest")
+		Cmd.Put:
+			$OnRoofCmd/AnimationPlayer.play("rest")
+		Cmd.Inc:
+			$OnRoofCmd/AnimationPlayer.play("right")
+		Cmd.Dec:
+			$OnRoofCmd/AnimationPlayer.play("right")
+		Cmd.BellC:
+			$OnRoofCmd/AnimationPlayer.play("right")
+		Cmd.BellD:
+			$OnRoofCmd/AnimationPlayer.play("right")
+		Cmd.BellE:
+			$OnRoofCmd/AnimationPlayer.play("right")
+		Cmd.BellF:
+			$OnRoofCmd/AnimationPlayer.play("right")
+		Cmd.BellG:
+			$OnRoofCmd/AnimationPlayer.play("right")
+		Cmd.BellA:
+			$OnRoofCmd/AnimationPlayer.play("right")
+		Cmd.BellB:
+			$OnRoofCmd/AnimationPlayer.play("right")

@@ -1,6 +1,6 @@
 # Thing to do
 
-- make cars to fallow all commands
+- make cars to follow all commands
   - [x] Empty
   - [x] Right
   - [x] Left
@@ -13,9 +13,12 @@
   - [x] BellG
   - [x] BellA
   - [x] BellB
-  - [ ] Inc
-  - [ ] Dec
-  - [ ] Take
-  - [ ] Put
-
+  - [x] Take
+  - [x] Inc
+  - [x] Dec
+  - [x] Put
+- [x] animation for RightIf and LeftIf
+- [ ] editor
 - [ ] make car wheels to rotate
+- [ ] menu screen
+- [ ] level selection
