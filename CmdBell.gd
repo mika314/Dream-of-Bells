@@ -1,4 +1,4 @@
-extends MeshInstance
+extends CmdBlock
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -12,5 +12,3 @@ func exec(car, cmdForwardRight):
 	car.moveForward()
 	emit_signal("bellRing", cmd)
 
-#warning-ignore:unused_class_variable
-export var cmd = Cmd.Empty

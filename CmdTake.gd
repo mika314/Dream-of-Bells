@@ -1,13 +1,12 @@
-extends MeshInstance
+extends CmdBlock
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$AudioStreamPlayer3D.stream.loop = false
+	cmd = Cmd.Take
 
 #warning-ignore:unused_argument
 func exec(car, cmdForwardRight):
 	$AudioStreamPlayer3D.play()
 	car.take(cmdForwardRight)
 
-#warning-ignore:unused_class_variable
-export var cmd = Cmd.Take

@@ -4,12 +4,12 @@ var levels = [
 """
 {
   "map": [
-      "  GE]C]",
+      "  G ]C]",
       "]>S<{ -",
-      "    CCE",
+      "       ",
       "    ] ]",
   ],
-  "cmds": "",
+  "cmds": "CEE",
   "bells": "CECEG"
 }
 """,
@@ -25,7 +25,11 @@ var levels = [
 """,
 ]
 
-func addCmd(cmd, x:int, y:int):
+enum GameMode { Edit, Play }
+
+var gameMode = GameMode.Edit
+
+func addCmd(cmd, readOnly: bool, x: int, y: int):
 	var cmdBlock
 	match cmd:
 		Cmd.Empty:
@@ -61,9 +65,14 @@ func addCmd(cmd, x:int, y:int):
 		Cmd.BellB:
 			cmdBlock = $CmdBellB.duplicate()
 	cmdBlock.visible = true
+	cmdBlock.readOnly = readOnly
 	cmdBlock.translation.x = x
 	cmdBlock.translation.y = 0
 	cmdBlock.translation.z = y
+	cmdBlock.cmd = cmd
+	cmdBlock.connect("hover", self, "_on_CmdBlock_hover")
+	cmdBlock.connect("addCmdBlockTo", self, "_on_CmdBlock_addCmdBlockTo")
+	cmdBlock.connect("removeCmdBlockFrom", self, "_on_CmdBlock_removeCmdBlockFrom")
 	add_child(cmdBlock)
 	if !currentLevel.has(y):
 		currentLevel[y] = {}
@@ -71,8 +80,8 @@ func addCmd(cmd, x:int, y:int):
 		currentLevel[y][x].queue_free()
 	currentLevel[y][x] = cmdBlock
 
-var bells = []
 var currentLevel = {}
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -80,79 +89,27 @@ func _ready():
 	if level.error != OK:
 		print("JSON parese error ", level.error_string)
 		return
-	var bellPos = 0
 	for bellColor in level.result.bells:
-		var bell = $Camera/Bell.duplicate()
-		bell.mesh = load("res://bell " + bellColor + ".mesh")
-		bell.visible = true
-		bell.translate(Vector3(0, 0, -bellPos))
-		match bellColor:
-			"C":
-				  bell.cmd = Cmd.BellC
-			"D":
-				  bell.cmd = Cmd.BellD
-			"E":
-				  bell.cmd = Cmd.BellE
-			"F":
-				  bell.cmd = Cmd.BellF
-			"G":
-				  bell.cmd = Cmd.BellG
-			"A":
-				  bell.cmd = Cmd.BellA
-			"B":
-				  bell.cmd = Cmd.BellB
-		bellPos += 1
-		$Camera.add_child(bell)
-		bells.append(bell)
+		$Camera/HUD.addBell(bellColor)
+	for c in level.result.cmds:
+		$Camera/HUD.addCmd(Cmd.charToCmd(c))
 	currentLevel.clear()
 	var y = 0
 	for line in level.result.map:
 		var x = 0
 		for c in line:
 			var cmd
-			match c:
-				" ":
-					cmd = Cmd.Empty
-				"]":
-					cmd = Cmd.Right
-				"[":
-					cmd = Cmd.Left
-				"}":
-					cmd = Cmd.RightIf
-				"{":
-					cmd = Cmd.LeftIf
-				"<":
-					cmd = Cmd.Take
-				">":
-					cmd = Cmd.Put
-				"+":
-					cmd = Cmd.Inc
-				"-":
-					cmd = Cmd.Dec
-				"C":
-					cmd = Cmd.BellC
-				"D":
-					cmd = Cmd.BellD
-				"E":
-					cmd = Cmd.BellE
-				"F":
-					cmd = Cmd.BellF
-				"G":
-					cmd = Cmd.BellG
-				"A":
-					cmd = Cmd.BellA
-				"B":
-					cmd = Cmd.BellB
-				"S":
-					cmd = Cmd.Empty
-					$Car.translation.x = x
-					$Car.translation.z = y
-			addCmd(cmd, x, y)
+			if c == "S":
+				cmd = Cmd.Empty
+				$Car.translation.x = x
+				$Car.translation.z = y
+			else:
+				cmd = Cmd.charToCmd(c)
+			addCmd(cmd, cmd != Cmd.Empty, x, y)
 			x += 1
 		y += 1
-	execCommand()
 
-func getCmd(x:int, y:int):
+func getCmd(x: int, y: int):
 	if !currentLevel.has(y):
 		return null
 	var raw = currentLevel[y]
@@ -170,7 +127,7 @@ func execCommand():
 		var roof = $Car.roof
 		var res = cmd.exec($Car, cmdForwardRight)
 		if cmd.cmd == Cmd.Put:
-			addCmd(roof, tmpCoord.x, tmpCoord.y)
+			addCmd(roof, false, tmpCoord.x, tmpCoord.y)
 		elif cmd.cmd == Cmd.LeftIf || cmd.cmd == Cmd.RightIf:
 			if res:
 				$Eq.translation.x = tmpCoord.x
@@ -182,16 +139,11 @@ func execCommand():
 				$Neq/AnimationPlayer.play("Flash")
 
 func _on_Car_animation_ended():
-	execCommand()
-
-func getFirstSleepingBell():
-	for bell in bells:
-		if bell.isSleeping:
-			return bell
-	return null
+	if gameMode == GameMode.Play:
+		execCommand()
 
 func _on_CmdBell_bellRing(cmd):
-	var sleepingBell = getFirstSleepingBell()
+	var sleepingBell = $Camera/HUD.getFirstSleepingBell()
 	if sleepingBell && cmd == sleepingBell.cmd:
 		sleepingBell.wakeUp()
 	else:
@@ -200,3 +152,33 @@ func _on_CmdBell_bellRing(cmd):
 func gameOver():
 	print("game over")
 	#todo
+
+# warning-ignore:unused_argument
+func _process(delta):
+	pass
+
+func _on_CmdBlock_hover(cmdBlock, value):
+	if value:
+		$"cmd selected".translation = cmdBlock.translation
+		$"cmd selected".visible = true
+	else:
+		$"cmd selected".visible = false
+
+func _on_CmdBlock_addCmdBlockTo(cmdBlock):
+	if cmdBlock.cmd != Cmd.Empty:
+		$Camera/HUD.addCmd(cmdBlock.cmd)
+	addCmd($Camera/HUD.getCurrentCmd(), false, cmdBlock.translation.x, cmdBlock.translation.z)
+	$Camera/HUD.removeCurrentCmd()
+
+func _on_CmdBlock_removeCmdBlockFrom(cmdBlock):
+	if cmdBlock.cmd != Cmd.Empty:
+		$Camera/HUD.addCmd(cmdBlock.cmd)
+	addCmd(Cmd.Empty, false, cmdBlock.translation.x, cmdBlock.translation.z)
+
+func _on_PlayButton_play():
+	gameMode = GameMode.Play
+	execCommand()
+
+
+func _on_StopButton_stop():
+	pass

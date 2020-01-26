@@ -4,7 +4,9 @@ extends Camera
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
-var CAM_SPEED = 3
+var CAM_SPEED = 7
+
+var hoverCmdBlock
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -24,6 +26,22 @@ func _process(delta):
 		dir.z -= 1
 	dir = dir.rotated(Vector3(0, 1, 0), rotation.y)
 	translation += dir * CAM_SPEED * delta
+	if $RayCast.get_collider() && $RayCast.get_collider().get_parent():
+		var cmdBlock = $RayCast.get_collider().get_parent()
+		if hoverCmdBlock != cmdBlock:
+			if hoverCmdBlock != null:
+				hoverCmdBlock.hover(false)
+			if cmdBlock != null:
+				cmdBlock.hover(true)
+			hoverCmdBlock = cmdBlock
+		if Input.is_action_just_pressed("ui_left_click"):
+			hoverCmdBlock.hover(false)
+			hoverCmdBlock = null
+			cmdBlock.left_click()
+		if Input.is_action_just_pressed("ui_right_click"):
+			hoverCmdBlock.hover(false)
+			hoverCmdBlock = null
+			cmdBlock.right_click()
 
 var MOUSE_SENSITIVITY = 0.07
 
@@ -38,12 +56,3 @@ func _input(event):
 		while tmpRotation.y < -2 * PI:
 			tmpRotation.y += 2 * PI
 		rotation = tmpRotation
-
-
-
-
-
-
-
-
-

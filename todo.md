@@ -19,6 +19,9 @@
   - [x] Put
 - [x] animation for RightIf and LeftIf
 - [ ] editor
+  - [ ] highlight the block
+  - [ ] substitute block on the click
+  - [ ] not allow put the blocks on existing command block
 - [ ] make car wheels to rotate
 - [ ] menu screen
 - [ ] level selection
