@@ -18,10 +18,13 @@
   - [x] Dec
   - [x] Put
 - [x] animation for RightIf and LeftIf
-- [ ] editor
-  - [ ] highlight the block
-  - [ ] substitute block on the click
-  - [ ] not allow put the blocks on existing command block
-- [ ] make car wheels to rotate
+- [x] editor
+  - [x] highlight the block
+  - [x] substitute block on the click
+  - [x] not allow put the blocks on existing command block
+- [x] start/stop
+  - [x] set bells to sleep
 - [ ] menu screen
-- [ ] level selection
+- [x] level selection
+- [ ] implement win and loose UIs
+- [ ] make car wheels to rotate

@@ -113,3 +113,7 @@ func removeCurrentCmd():
 	if currentCmd < 0:
 		currentCmd = 0
 	updateCmdPos()
+
+func reset():
+	for bell in bells:
+		bell.reset()

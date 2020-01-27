@@ -18,17 +18,27 @@ _global_script_classes=[ {
 "class": "CmdBlock",
 "language": "GDScript",
 "path": "res://CmdBlock.gd"
+}, {
+"base": "Reference",
+"class": "CopyCmd",
+"language": "GDScript",
+"path": "res://CopyCmd.gd"
 } ]
 _global_script_class_icons={
 "Cmd": "",
-"CmdBlock": ""
+"CmdBlock": "",
+"CopyCmd": ""
 }
 
 [application]
 
 config/name="Dream of Bells"
-run/main_scene="res://gameplay.tscn"
+run/main_scene="res://level selection.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+global="*res://global.gd"
 
 [display]
 

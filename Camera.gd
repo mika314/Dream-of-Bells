@@ -2,7 +2,7 @@ extends Camera
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	pass
 
 var CAM_SPEED = 7
 
@@ -29,9 +29,9 @@ func _process(delta):
 	if $RayCast.get_collider() && $RayCast.get_collider().get_parent():
 		var cmdBlock = $RayCast.get_collider().get_parent()
 		if hoverCmdBlock != cmdBlock:
-			if hoverCmdBlock != null:
+			if is_instance_valid(hoverCmdBlock):
 				hoverCmdBlock.hover(false)
-			if cmdBlock != null:
+			if is_instance_valid(cmdBlock):
 				cmdBlock.hover(true)
 			hoverCmdBlock = cmdBlock
 		if Input.is_action_just_pressed("ui_left_click"):

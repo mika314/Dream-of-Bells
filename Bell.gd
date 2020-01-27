@@ -28,3 +28,8 @@ func wakeUp():
 	isSleeping = false;
 	eyesOpen.visible = !isSleeping
 	eyesClosed.visible = isSleeping
+	
+func reset():
+	isSleeping = true;
+	eyesOpen.visible = !isSleeping
+	eyesClosed.visible = isSleeping

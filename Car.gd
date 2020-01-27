@@ -92,19 +92,24 @@ func getForwardRightCoord():
 	dest = dest + dir
 	return Vector2(round(dest.x), round(dest.z))
 
-func inc():
-	moveForward()
-	roof += 1
-	roof %= 16
+func setRoof(cmd):
+	roof = cmd
 	$OnRoofCmd.mesh = onRoofMeshes[roof]
 	playRestAnim()
 
+func inc():
+	moveForward()
+	var tmp = roof
+	tmp += 1
+	tmp %= 16
+	setRoof(tmp)
+
 func dec():
 	moveForward()
-	roof += 15
-	roof %= 16
-	$OnRoofCmd.mesh = onRoofMeshes[roof]
-	playRestAnim()
+	var tmp = roof
+	tmp += 15
+	tmp %= 16
+	setRoof(tmp)
 
 func take(cmd):
 	moveForward()
@@ -155,3 +160,18 @@ func playRestAnim():
 			$OnRoofCmd/AnimationPlayer.play("right")
 		Cmd.BellB:
 			$OnRoofCmd/AnimationPlayer.play("right")
+
+var initX: int
+var initY: int
+
+func setInitPos(x: int, y: int):
+	initX = x
+	initY = y
+	reset()
+
+func reset():
+	translation.x = initX
+	translation.z = initY
+	setRoof(Cmd.Empty)
+	rotation = Vector3(0, -PI / 2, 0)
+	animation = null

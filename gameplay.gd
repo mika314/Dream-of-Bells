@@ -2,16 +2,37 @@ extends Spatial
 
 var levels = [
 """
-{
-  "map": [
-      "  G ]C]",
-      "]>S<{ -",
-      "       ",
-      "    ] ]",
-  ],
-  "cmds": "CEE",
-  "bells": "CECEG"
-}
+  {
+    "map": [
+      "   C",
+      "   D",
+      "S C "
+    ],
+    "cmds": "[DC",
+    "bells": "CDC"
+  }
+""",
+"""
+  {
+    "map": [
+      "  C",
+      "S  "
+    ],
+    "cmds": "[]",
+    "bells": "C"
+  }
+""",
+"""
+  {
+    "map": [
+        "  G ]C]",
+        "]>S<{ -",
+        "       ",
+        "    ] ]",
+    ],
+    "cmds": "CEE",
+    "bells": "CECEG"
+  }
 """,
 """
 {
@@ -26,7 +47,6 @@ var levels = [
 ]
 
 enum GameMode { Edit, Play }
-
 var gameMode = GameMode.Edit
 
 func addCmd(cmd, readOnly: bool, x: int, y: int):
@@ -81,11 +101,15 @@ func addCmd(cmd, readOnly: bool, x: int, y: int):
 	currentLevel[y][x] = cmdBlock
 
 var currentLevel = {}
-
+var copyLevel = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var level = JSON.parse(levels[0])
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	loadLevel(global.selectedLevel)
+
+func loadLevel(l: int):
+	var level = JSON.parse(levels[l - 1])
 	if level.error != OK:
 		print("JSON parese error ", level.error_string)
 		return
@@ -101,8 +125,7 @@ func _ready():
 			var cmd
 			if c == "S":
 				cmd = Cmd.Empty
-				$Car.translation.x = x
-				$Car.translation.z = y
+				$Car.setInitPos(x, y)
 			else:
 				cmd = Cmd.charToCmd(c)
 			addCmd(cmd, cmd != Cmd.Empty, x, y)
@@ -141,6 +164,8 @@ func execCommand():
 func _on_Car_animation_ended():
 	if gameMode == GameMode.Play:
 		execCommand()
+	else:
+		$Car.reset()
 
 func _on_CmdBell_bellRing(cmd):
 	var sleepingBell = $Camera/HUD.getFirstSleepingBell()
@@ -158,27 +183,46 @@ func _process(delta):
 	pass
 
 func _on_CmdBlock_hover(cmdBlock, value):
-	if value:
-		$"cmd selected".translation = cmdBlock.translation
-		$"cmd selected".visible = true
-	else:
-		$"cmd selected".visible = false
+	$"cmd selected".translation = cmdBlock.translation
+	$"cmd selected".visible = value && gameMode == GameMode.Edit
 
 func _on_CmdBlock_addCmdBlockTo(cmdBlock):
+	if gameMode != GameMode.Edit:
+		return
 	if cmdBlock.cmd != Cmd.Empty:
 		$Camera/HUD.addCmd(cmdBlock.cmd)
 	addCmd($Camera/HUD.getCurrentCmd(), false, cmdBlock.translation.x, cmdBlock.translation.z)
 	$Camera/HUD.removeCurrentCmd()
 
 func _on_CmdBlock_removeCmdBlockFrom(cmdBlock):
+	if gameMode != GameMode.Edit:
+		return
 	if cmdBlock.cmd != Cmd.Empty:
 		$Camera/HUD.addCmd(cmdBlock.cmd)
 	addCmd(Cmd.Empty, false, cmdBlock.translation.x, cmdBlock.translation.z)
 
 func _on_PlayButton_play():
+	if gameMode == GameMode.Play:
+		return
 	gameMode = GameMode.Play
+	copyLevel.clear()
+	for y in currentLevel:
+		copyLevel[y] = {}
+		for x in currentLevel[y]:
+			var tmp = currentLevel[y][x]
+			copyLevel[y][x] = CopyCmd.new(tmp.cmd, tmp.readOnly)
 	execCommand()
 
-
 func _on_StopButton_stop():
-	pass
+	if gameMode == GameMode.Edit:
+		return
+	gameMode = GameMode.Edit
+	for y in copyLevel:
+		for x in copyLevel[y]:
+			var tmp = copyLevel[y][x]
+			addCmd(tmp.cmd, tmp.readOnly, x, y)
+	$Car.reset()
+	$Camera/HUD.reset()
+
+func _on_LevelsButton_levels():
+	get_tree().change_scene("res://level selection.tscn")
