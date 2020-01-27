@@ -40,9 +40,9 @@ var levels = [
 """
     {
       "map": [
-        "     ",
-        "  C E",
-        "S    ",
+        "      ",
+        "  C E ",
+        "S     ",
       ],
       "cmds": "[D]]",
       "bells": "CED"
@@ -224,6 +224,7 @@ func _ready():
 	loadLevel(global.selectedLevel)
 
 func loadLevel(l: int):
+	$LevelStr.text = "Level " + str(l)
 	var level = JSON.parse(levels[l - 1])
 	if level.error != OK:
 		print("JSON parese error ", level.error_string)
@@ -233,6 +234,10 @@ func loadLevel(l: int):
 	for c in level.result.cmds:
 		$Camera/HUD.addCmd(Cmd.charToCmd(c))
 	currentLevel.clear()
+	var R = 25
+	for y in range(-R, R):
+		for x in range(-sqrt(R * R - y * y), sqrt(R * R - y * y)):
+			addCmd(Cmd.Empty, false, x, y)
 	var y = 0
 	for line in level.result.map:
 		var x = 0
@@ -286,12 +291,17 @@ func _on_CmdBell_bellRing(cmd):
 	var sleepingBell = $Camera/HUD.getFirstSleepingBell()
 	if sleepingBell && cmd == sleepingBell.cmd:
 		sleepingBell.wakeUp()
+		if $Camera/HUD.sleepingBellsNum() == 0:
+			$Camera/HUD.levelCleared()
 	else:
-		gameOver()
+		$Camera/HUD.levelFailed()
 
-func gameOver():
-	print("game over")
+func levelFailed():
+	print("levelFailed")
 	#todo
+
+func levelCleared():
+	print("levelPassed")
 
 # warning-ignore:unused_argument
 func _process(delta):
@@ -328,8 +338,8 @@ func _on_PlayButton_play():
 			var tmp = currentLevel[y][x]
 			copyLevel[y][x] = CopyCmd.new(tmp.cmd, tmp.readOnly)
 	execCommand()
-
-func _on_StopButton_stop():
+	
+func restart():
 	if gameMode == GameMode.Edit:
 		return
 	gameMode = GameMode.Edit
@@ -340,5 +350,25 @@ func _on_StopButton_stop():
 	$Car.reset()
 	$Camera/HUD.reset()
 
-func _on_LevelsButton_levels():
+func _on_StopButton_stop():
+	restart()
+	
+func switchToLevelSelectionScreen():
+# warning-ignore:return_value_discarded
 	get_tree().change_scene("res://level selection.tscn")
+
+func _on_LevelsButton_levels():
+	switchToLevelSelectionScreen()
+
+func _on_LevelClearedFailed_levels():
+	switchToLevelSelectionScreen()
+
+func _on_LevelClearedFailed_next():
+	global.selectedLevel += 1
+	get_tree().change_scene("res://gameplay.tscn")
+
+
+func _on_LevelClearedFailed_restart():
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	$Camera/HUD/LevelClearedFailed.visible = false
+	restart()

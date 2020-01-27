@@ -1,65 +1,66 @@
-[gd_scene load_steps=70 format=2]
+[gd_scene load_steps=71 format=2]
 
 [ext_resource path="res://gameplay.gd" type="Script" id=1]
 [ext_resource path="res://default_env.tres" type="Environment" id=2]
 [ext_resource path="res://Camera.gd" type="Script" id=3]
 [ext_resource path="res://HUD.gd" type="Script" id=4]
-[ext_resource path="res://cross.mesh" type="ArrayMesh" id=5]
-[ext_resource path="res://frame.mesh" type="ArrayMesh" id=6]
-[ext_resource path="res://cmd 09 bell C.mesh" type="ArrayMesh" id=7]
-[ext_resource path="res://HudCmd.gd" type="Script" id=8]
-[ext_resource path="res://bell C.mesh" type="ArrayMesh" id=9]
-[ext_resource path="res://Bell.gd" type="Script" id=10]
-[ext_resource path="res://eyes open.mesh" type="ArrayMesh" id=11]
-[ext_resource path="res://eyes closed.mesh" type="ArrayMesh" id=12]
-[ext_resource path="res://car.mesh" type="ArrayMesh" id=13]
-[ext_resource path="res://Car.gd" type="Script" id=14]
-[ext_resource path="res://neq.mesh" type="ArrayMesh" id=15]
-[ext_resource path="res://eq.mesh" type="ArrayMesh" id=16]
-[ext_resource path="res://cmd 00 empty.mesh" type="ArrayMesh" id=17]
-[ext_resource path="res://CmdEmpty.gd" type="Script" id=18]
-[ext_resource path="res://cmd 01 right.mesh" type="ArrayMesh" id=19]
-[ext_resource path="res://CmdRight.gd" type="Script" id=20]
-[ext_resource path="res://turn.ogg" type="AudioStream" id=21]
-[ext_resource path="res://cmd 02 left.mesh" type="ArrayMesh" id=22]
-[ext_resource path="res://CmdLeft.gd" type="Script" id=23]
-[ext_resource path="res://cmd 03 right if.mesh" type="ArrayMesh" id=24]
-[ext_resource path="res://CmdRightIf.gd" type="Script" id=25]
-[ext_resource path="res://wrong.ogg" type="AudioStream" id=26]
-[ext_resource path="res://cmd 04 left if.mesh" type="ArrayMesh" id=27]
-[ext_resource path="res://CmdLeftIf.gd" type="Script" id=28]
-[ext_resource path="res://cmd 05 take.mesh" type="ArrayMesh" id=29]
-[ext_resource path="res://CmdTake.gd" type="Script" id=30]
-[ext_resource path="res://in.ogg" type="AudioStream" id=31]
-[ext_resource path="res://cmd 06 put.mesh" type="ArrayMesh" id=32]
-[ext_resource path="res://CmdPut.gd" type="Script" id=33]
-[ext_resource path="res://out.ogg" type="AudioStream" id=34]
-[ext_resource path="res://cmd 07 inc.mesh" type="ArrayMesh" id=35]
-[ext_resource path="res://CmdInc.gd" type="Script" id=36]
-[ext_resource path="res://inc.ogg" type="AudioStream" id=37]
-[ext_resource path="res://cmd 08 dec.mesh" type="ArrayMesh" id=38]
-[ext_resource path="res://CmdDec.gd" type="Script" id=39]
-[ext_resource path="res://dec.ogg" type="AudioStream" id=40]
-[ext_resource path="res://CmdBell.gd" type="Script" id=41]
-[ext_resource path="res://bell C.ogg" type="AudioStream" id=42]
-[ext_resource path="res://cmd 10 bell D.mesh" type="ArrayMesh" id=43]
-[ext_resource path="res://bell D.ogg" type="AudioStream" id=44]
-[ext_resource path="res://cmd 11 bell E.mesh" type="ArrayMesh" id=45]
-[ext_resource path="res://bell E.ogg" type="AudioStream" id=46]
-[ext_resource path="res://cmd 12 bell F.mesh" type="ArrayMesh" id=47]
-[ext_resource path="res://bell F.ogg" type="AudioStream" id=48]
-[ext_resource path="res://cmd 13 bell G.mesh" type="ArrayMesh" id=49]
-[ext_resource path="res://bell G.ogg" type="AudioStream" id=50]
-[ext_resource path="res://cmd 14 bell A.mesh" type="ArrayMesh" id=51]
-[ext_resource path="res://bell A.ogg" type="AudioStream" id=52]
-[ext_resource path="res://cmd 15 bell B.mesh" type="ArrayMesh" id=53]
-[ext_resource path="res://bell B.ogg" type="AudioStream" id=54]
-[ext_resource path="res://cmd selected.mesh" type="ArrayMesh" id=55]
-[ext_resource path="res://control panel.mesh" type="ArrayMesh" id=56]
-[ext_resource path="res://button selected.mesh" type="ArrayMesh" id=57]
-[ext_resource path="res://PlayButton.gd" type="Script" id=58]
-[ext_resource path="res://StopButton.gd" type="Script" id=59]
-[ext_resource path="res://LevelsButton.gd" type="Script" id=60]
+[ext_resource path="res://LevelClearedFailed.tscn" type="PackedScene" id=5]
+[ext_resource path="res://cross.mesh" type="ArrayMesh" id=6]
+[ext_resource path="res://frame.mesh" type="ArrayMesh" id=7]
+[ext_resource path="res://cmd 09 bell C.mesh" type="ArrayMesh" id=8]
+[ext_resource path="res://HudCmd.gd" type="Script" id=9]
+[ext_resource path="res://bell C.mesh" type="ArrayMesh" id=10]
+[ext_resource path="res://Bell.gd" type="Script" id=11]
+[ext_resource path="res://eyes open.mesh" type="ArrayMesh" id=12]
+[ext_resource path="res://eyes closed.mesh" type="ArrayMesh" id=13]
+[ext_resource path="res://car.mesh" type="ArrayMesh" id=14]
+[ext_resource path="res://Car.gd" type="Script" id=15]
+[ext_resource path="res://neq.mesh" type="ArrayMesh" id=16]
+[ext_resource path="res://eq.mesh" type="ArrayMesh" id=17]
+[ext_resource path="res://cmd 00 empty.mesh" type="ArrayMesh" id=18]
+[ext_resource path="res://CmdEmpty.gd" type="Script" id=19]
+[ext_resource path="res://cmd 01 right.mesh" type="ArrayMesh" id=20]
+[ext_resource path="res://CmdRight.gd" type="Script" id=21]
+[ext_resource path="res://turn.ogg" type="AudioStream" id=22]
+[ext_resource path="res://cmd 02 left.mesh" type="ArrayMesh" id=23]
+[ext_resource path="res://CmdLeft.gd" type="Script" id=24]
+[ext_resource path="res://cmd 03 right if.mesh" type="ArrayMesh" id=25]
+[ext_resource path="res://CmdRightIf.gd" type="Script" id=26]
+[ext_resource path="res://wrong.ogg" type="AudioStream" id=27]
+[ext_resource path="res://cmd 04 left if.mesh" type="ArrayMesh" id=28]
+[ext_resource path="res://CmdLeftIf.gd" type="Script" id=29]
+[ext_resource path="res://cmd 05 take.mesh" type="ArrayMesh" id=30]
+[ext_resource path="res://CmdTake.gd" type="Script" id=31]
+[ext_resource path="res://in.ogg" type="AudioStream" id=32]
+[ext_resource path="res://cmd 06 put.mesh" type="ArrayMesh" id=33]
+[ext_resource path="res://CmdPut.gd" type="Script" id=34]
+[ext_resource path="res://out.ogg" type="AudioStream" id=35]
+[ext_resource path="res://cmd 07 inc.mesh" type="ArrayMesh" id=36]
+[ext_resource path="res://CmdInc.gd" type="Script" id=37]
+[ext_resource path="res://inc.ogg" type="AudioStream" id=38]
+[ext_resource path="res://cmd 08 dec.mesh" type="ArrayMesh" id=39]
+[ext_resource path="res://CmdDec.gd" type="Script" id=40]
+[ext_resource path="res://dec.ogg" type="AudioStream" id=41]
+[ext_resource path="res://CmdBell.gd" type="Script" id=42]
+[ext_resource path="res://bell C.ogg" type="AudioStream" id=43]
+[ext_resource path="res://cmd 10 bell D.mesh" type="ArrayMesh" id=44]
+[ext_resource path="res://bell D.ogg" type="AudioStream" id=45]
+[ext_resource path="res://cmd 11 bell E.mesh" type="ArrayMesh" id=46]
+[ext_resource path="res://bell E.ogg" type="AudioStream" id=47]
+[ext_resource path="res://cmd 12 bell F.mesh" type="ArrayMesh" id=48]
+[ext_resource path="res://bell F.ogg" type="AudioStream" id=49]
+[ext_resource path="res://cmd 13 bell G.mesh" type="ArrayMesh" id=50]
+[ext_resource path="res://bell G.ogg" type="AudioStream" id=51]
+[ext_resource path="res://cmd 14 bell A.mesh" type="ArrayMesh" id=52]
+[ext_resource path="res://bell A.ogg" type="AudioStream" id=53]
+[ext_resource path="res://cmd 15 bell B.mesh" type="ArrayMesh" id=54]
+[ext_resource path="res://bell B.ogg" type="AudioStream" id=55]
+[ext_resource path="res://cmd selected.mesh" type="ArrayMesh" id=56]
+[ext_resource path="res://control panel.mesh" type="ArrayMesh" id=57]
+[ext_resource path="res://button selected.mesh" type="ArrayMesh" id=58]
+[ext_resource path="res://PlayButton.gd" type="Script" id=59]
+[ext_resource path="res://StopButton.gd" type="Script" id=60]
+[ext_resource path="res://LevelsButton.gd" type="Script" id=61]
 
 [sub_resource type="Animation" id=1]
 resource_name = "jump from the roof"
@@ -208,6 +209,11 @@ extents = Vector3( 0.550243, 0.0705102, 0.479112 )
 [node name="gameplay" type="Spatial"]
 script = ExtResource( 1 )
 
+[node name="LevelStr" type="Label" parent="."]
+margin_right = 82.0
+margin_bottom = 45.0
+text = "Level 1"
+
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( -0.204224, 0.465944, -0.860923, 0.107544, 0.884814, 0.453363, 0.972999, 4.76837e-007, -0.23081, -9.18374, 6.0923, -4.96365 )
 light_color = Color( 1, 0.792157, 0.588235, 1 )
@@ -215,7 +221,7 @@ light_energy = 0.67
 shadow_enabled = true
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( -3.91472e-008, -0.444891, 0.895585, -1.94468e-008, 0.895585, 0.444891, -1, -2.4869e-014, -4.37113e-008, 12.4447, 5.67109, 0 )
+transform = Transform( -3.91472e-008, -0.444891, 0.895585, -1.94468e-008, 0.895585, 0.444891, -1, -2.4869e-014, -4.37113e-008, 12, 5.671, 0 )
 environment = ExtResource( 2 )
 script = ExtResource( 3 )
 
@@ -234,33 +240,37 @@ collide_with_bodies = false
 [node name="HUD" type="Spatial" parent="Camera"]
 script = ExtResource( 4 )
 
+[node name="LevelClearedFailed" parent="Camera/HUD" instance=ExtResource( 5 )]
+transform = Transform( 0.25, -1.77625e-015, -2.4869e-014, -4.44088e-016, 0.250001, 7.45058e-009, -4.44089e-015, -7.45058e-009, 0.250001, 0.00599384, -0.505046, 0.191844 )
+visible = false
+
 [node name="Cross" type="MeshInstance" parent="Camera/HUD"]
 transform = Transform( 0.02, 0, 0, 0, -8.74228e-010, -0.02, 0, 0.02, -8.74228e-010, 0, 0, -0.3 )
-mesh = ExtResource( 5 )
+mesh = ExtResource( 6 )
 material/0 = null
 
 [node name="Frame" type="MeshInstance" parent="Camera/HUD"]
 transform = Transform( -4.87274e-009, -9.78132e-009, -0.25, -0.223771, 0.111475, 0, 0.111475, 0.223771, -1.09278e-008, 0, -1, -2 )
-mesh = ExtResource( 6 )
+mesh = ExtResource( 7 )
 material/0 = null
 
 [node name="Cmd" type="MeshInstance" parent="Camera/HUD"]
 transform = Transform( -4.87279e-009, -9.7813e-009, -0.25, -0.22377, 0.111476, 0, 0.111476, 0.22377, -1.09278e-008, 0, -1, -2 )
 visible = false
-mesh = ExtResource( 7 )
+mesh = ExtResource( 8 )
 material/0 = null
 material/1 = null
-script = ExtResource( 8 )
+script = ExtResource( 9 )
 
 [node name="Bell" type="MeshInstance" parent="Camera/HUD"]
 editor/display_folded = true
 transform = Transform( -1.05014e-008, -3.02312e-009, -0.25, -0.069161, 0.240243, 0, 0.240243, 0.069161, -1.09278e-008, -1.66, 1.075, -2 )
 visible = false
-mesh = ExtResource( 9 )
+mesh = ExtResource( 10 )
 material/0 = null
 material/1 = null
 material/2 = null
-script = ExtResource( 10 )
+script = ExtResource( 11 )
 
 [node name="TimerClose" type="Timer" parent="Camera/HUD/Bell"]
 wait_time = 2.68
@@ -271,21 +281,21 @@ wait_time = 0.1
 one_shot = true
 
 [node name="Eyes Open" type="MeshInstance" parent="Camera/HUD/Bell"]
-mesh = ExtResource( 11 )
+mesh = ExtResource( 12 )
 material/0 = null
 material/1 = null
 
 [node name="Eyes Closed" type="MeshInstance" parent="Camera/HUD/Bell"]
 visible = false
-mesh = ExtResource( 12 )
+mesh = ExtResource( 13 )
 material/0 = null
 
 [node name="Car" type="MeshInstance" parent="."]
 editor/display_folded = true
 transform = Transform( -4.37114e-008, 0, -1, 0, 1, 0, 1, 0, -4.37114e-008, 0, 1, 0 )
-mesh = ExtResource( 13 )
+mesh = ExtResource( 14 )
 material/0 = null
-script = ExtResource( 14 )
+script = ExtResource( 15 )
 
 [node name="OnRoofCmd" type="MeshInstance" parent="Car"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
@@ -301,7 +311,7 @@ anims/right = SubResource( 5 )
 editor/display_folded = true
 transform = Transform( -0.00177334, -5.76001e-006, -0.999998, -8.67399e-005, 1, -5.60878e-006, 0.999998, 8.673e-005, -0.00177334, 0, 0, 0 )
 visible = false
-mesh = ExtResource( 15 )
+mesh = ExtResource( 16 )
 material/0 = null
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Neq"]
@@ -311,7 +321,7 @@ anims/Flash = SubResource( 6 )
 editor/display_folded = true
 transform = Transform( -0.00177334, -5.76001e-006, -0.999998, -8.67399e-005, 1, -5.60878e-006, 0.999998, 8.673e-005, -0.00177334, 0, 0, 0 )
 visible = false
-mesh = ExtResource( 16 )
+mesh = ExtResource( 17 )
 material/0 = null
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Eq"]
@@ -321,10 +331,10 @@ anims/Flash = SubResource( 7 )
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0 )
 visible = false
-mesh = ExtResource( 17 )
+mesh = ExtResource( 18 )
 material/0 = null
 material/1 = null
-script = ExtResource( 18 )
+script = ExtResource( 19 )
 
 [node name="Area" type="Area" parent="CmdEmpty"]
 
@@ -335,13 +345,13 @@ shape = SubResource( 8 )
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0 )
 visible = false
-mesh = ExtResource( 19 )
+mesh = ExtResource( 20 )
 material/0 = null
 material/1 = null
-script = ExtResource( 20 )
+script = ExtResource( 21 )
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="CmdRight"]
-stream = ExtResource( 21 )
+stream = ExtResource( 22 )
 
 [node name="Area" type="Area" parent="CmdRight"]
 editor/display_folded = true
@@ -354,13 +364,13 @@ shape = SubResource( 8 )
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0 )
 visible = false
-mesh = ExtResource( 22 )
+mesh = ExtResource( 23 )
 material/0 = null
 material/1 = null
-script = ExtResource( 23 )
+script = ExtResource( 24 )
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="CmdLeft"]
-stream = ExtResource( 21 )
+stream = ExtResource( 22 )
 
 [node name="Area" type="Area" parent="CmdLeft"]
 
@@ -371,16 +381,16 @@ shape = SubResource( 8 )
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0 )
 visible = false
-mesh = ExtResource( 24 )
+mesh = ExtResource( 25 )
 material/0 = null
 material/1 = null
-script = ExtResource( 25 )
+script = ExtResource( 26 )
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="CmdRightIf"]
-stream = ExtResource( 21 )
+stream = ExtResource( 22 )
 
 [node name="Wrong" type="AudioStreamPlayer3D" parent="CmdRightIf"]
-stream = ExtResource( 26 )
+stream = ExtResource( 27 )
 
 [node name="Area" type="Area" parent="CmdRightIf"]
 
@@ -391,17 +401,17 @@ shape = SubResource( 8 )
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0 )
 visible = false
-mesh = ExtResource( 27 )
+mesh = ExtResource( 28 )
 material/0 = null
 material/1 = null
-script = ExtResource( 28 )
+script = ExtResource( 29 )
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="CmdLeftIf"]
-stream = ExtResource( 21 )
+stream = ExtResource( 22 )
 
 [node name="Wrong" type="AudioStreamPlayer3D" parent="CmdLeftIf"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.20575, 0, 0 )
-stream = ExtResource( 26 )
+stream = ExtResource( 27 )
 
 [node name="Area" type="Area" parent="CmdLeftIf"]
 
@@ -412,13 +422,13 @@ shape = SubResource( 8 )
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0 )
 visible = false
-mesh = ExtResource( 29 )
+mesh = ExtResource( 30 )
 material/0 = null
 material/1 = null
-script = ExtResource( 30 )
+script = ExtResource( 31 )
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="CmdTake"]
-stream = ExtResource( 31 )
+stream = ExtResource( 32 )
 
 [node name="Area" type="Area" parent="CmdTake"]
 editor/display_folded = true
@@ -430,13 +440,13 @@ shape = SubResource( 8 )
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0 )
 visible = false
-mesh = ExtResource( 32 )
+mesh = ExtResource( 33 )
 material/0 = null
 material/1 = null
-script = ExtResource( 33 )
+script = ExtResource( 34 )
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="CmdPut"]
-stream = ExtResource( 34 )
+stream = ExtResource( 35 )
 
 [node name="Area" type="Area" parent="CmdPut"]
 
@@ -447,13 +457,13 @@ shape = SubResource( 8 )
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0 )
 visible = false
-mesh = ExtResource( 35 )
+mesh = ExtResource( 36 )
 material/0 = null
 material/1 = null
-script = ExtResource( 36 )
+script = ExtResource( 37 )
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="CmdInc"]
-stream = ExtResource( 37 )
+stream = ExtResource( 38 )
 
 [node name="Area" type="Area" parent="CmdInc"]
 
@@ -464,13 +474,13 @@ shape = SubResource( 8 )
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0 )
 visible = false
-mesh = ExtResource( 38 )
+mesh = ExtResource( 39 )
 material/0 = null
 material/1 = null
-script = ExtResource( 39 )
+script = ExtResource( 40 )
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="CmdDec"]
-stream = ExtResource( 40 )
+stream = ExtResource( 41 )
 
 [node name="Area" type="Area" parent="CmdDec"]
 
@@ -481,14 +491,14 @@ shape = SubResource( 8 )
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0 )
 visible = false
-mesh = ExtResource( 7 )
+mesh = ExtResource( 8 )
 material/0 = null
 material/1 = null
-script = ExtResource( 41 )
+script = ExtResource( 42 )
 cmd = 9
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="CmdBellC"]
-stream = ExtResource( 42 )
+stream = ExtResource( 43 )
 
 [node name="Area" type="Area" parent="CmdBellC"]
 
@@ -499,14 +509,14 @@ shape = SubResource( 8 )
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0 )
 visible = false
-mesh = ExtResource( 43 )
+mesh = ExtResource( 44 )
 material/0 = null
 material/1 = null
-script = ExtResource( 41 )
+script = ExtResource( 42 )
 cmd = 10
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="CmdBellD"]
-stream = ExtResource( 44 )
+stream = ExtResource( 45 )
 
 [node name="Area" type="Area" parent="CmdBellD"]
 
@@ -517,14 +527,14 @@ shape = SubResource( 8 )
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0 )
 visible = false
-mesh = ExtResource( 45 )
+mesh = ExtResource( 46 )
 material/0 = null
 material/1 = null
-script = ExtResource( 41 )
+script = ExtResource( 42 )
 cmd = 11
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="CmdBellE"]
-stream = ExtResource( 46 )
+stream = ExtResource( 47 )
 
 [node name="Area" type="Area" parent="CmdBellE"]
 
@@ -535,14 +545,14 @@ shape = SubResource( 8 )
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0 )
 visible = false
-mesh = ExtResource( 47 )
+mesh = ExtResource( 48 )
 material/0 = null
 material/1 = null
-script = ExtResource( 41 )
+script = ExtResource( 42 )
 cmd = 12
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="CmdBellF"]
-stream = ExtResource( 48 )
+stream = ExtResource( 49 )
 
 [node name="Area" type="Area" parent="CmdBellF"]
 
@@ -553,14 +563,14 @@ shape = SubResource( 8 )
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0 )
 visible = false
-mesh = ExtResource( 49 )
+mesh = ExtResource( 50 )
 material/0 = null
 material/1 = null
-script = ExtResource( 41 )
+script = ExtResource( 42 )
 cmd = 13
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="CmdBellG"]
-stream = ExtResource( 50 )
+stream = ExtResource( 51 )
 
 [node name="Area" type="Area" parent="CmdBellG"]
 
@@ -571,14 +581,14 @@ shape = SubResource( 8 )
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0 )
 visible = false
-mesh = ExtResource( 51 )
+mesh = ExtResource( 52 )
 material/0 = null
 material/1 = null
-script = ExtResource( 41 )
+script = ExtResource( 42 )
 cmd = 14
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="CmdBellA"]
-stream = ExtResource( 52 )
+stream = ExtResource( 53 )
 
 [node name="Area" type="Area" parent="CmdBellA"]
 
@@ -589,14 +599,14 @@ shape = SubResource( 8 )
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0 )
 visible = false
-mesh = ExtResource( 53 )
+mesh = ExtResource( 54 )
 material/0 = null
 material/1 = null
-script = ExtResource( 41 )
+script = ExtResource( 42 )
 cmd = 15
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="CmdBellB"]
-stream = ExtResource( 54 )
+stream = ExtResource( 55 )
 
 [node name="Area" type="Area" parent="CmdBellB"]
 
@@ -606,22 +616,24 @@ shape = SubResource( 8 )
 [node name="cmd selected" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0 )
 visible = false
-mesh = ExtResource( 55 )
+mesh = ExtResource( 56 )
 material/0 = null
 
 [node name="control panel" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.66756, 3, 0 )
-mesh = ExtResource( 56 )
+editor/display_folded = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 3, 0 )
+mesh = ExtResource( 57 )
 material/0 = null
 material/1 = null
 material/2 = null
 
 [node name="PlayButton" type="MeshInstance" parent="control panel"]
+editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.45625 )
 visible = false
-mesh = ExtResource( 57 )
+mesh = ExtResource( 58 )
 material/0 = null
-script = ExtResource( 58 )
+script = ExtResource( 59 )
 
 [node name="PlayButton" type="Area" parent="control panel/PlayButton"]
 
@@ -630,11 +642,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0208088 )
 shape = SubResource( 9 )
 
 [node name="StopButton" type="MeshInstance" parent="control panel"]
+editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.518767 )
 visible = false
-mesh = ExtResource( 57 )
+mesh = ExtResource( 58 )
 material/0 = null
-script = ExtResource( 59 )
+script = ExtResource( 60 )
 
 [node name="StopButton" type="Area" parent="control panel/StopButton"]
 
@@ -643,11 +656,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0421673 )
 shape = SubResource( 9 )
 
 [node name="LevelsButton" type="MeshInstance" parent="control panel"]
+editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.58023 )
 visible = false
-mesh = ExtResource( 57 )
+mesh = ExtResource( 58 )
 material/0 = null
-script = ExtResource( 60 )
+script = ExtResource( 61 )
 
 [node name="LevelsButton" type="Area" parent="control panel/LevelsButton"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0616988 )
@@ -655,6 +669,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0616988 )
 [node name="CollisionShape" type="CollisionShape" parent="control panel/LevelsButton/LevelsButton"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0421673 )
 shape = SubResource( 9 )
+[connection signal="levels" from="Camera/HUD/LevelClearedFailed" to="." method="_on_LevelClearedFailed_levels"]
+[connection signal="next" from="Camera/HUD/LevelClearedFailed" to="." method="_on_LevelClearedFailed_next"]
+[connection signal="restart" from="Camera/HUD/LevelClearedFailed" to="." method="_on_LevelClearedFailed_restart"]
 [connection signal="timeout" from="Camera/HUD/Bell/TimerClose" to="Camera/HUD/Bell" method="_on_TimerClose_timeout"]
 [connection signal="timeout" from="Camera/HUD/Bell/TimerOpen" to="Camera/HUD/Bell" method="_on_TimerOpen_timeout"]
 [connection signal="animation_ended" from="Car" to="." method="_on_Car_animation_ended"]

@@ -11,4 +11,3 @@ func exec(car, cmdForwardRight):
 	$AudioStreamPlayer3D.play()
 	car.moveForward()
 	emit_signal("bellRing", cmd)
-

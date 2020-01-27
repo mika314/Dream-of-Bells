@@ -117,3 +117,16 @@ func removeCurrentCmd():
 func reset():
 	for bell in bells:
 		bell.reset()
+
+func sleepingBellsNum():
+	var ret = 0
+	for bell in bells:
+		if bell.isSleeping:
+			ret += 1
+	return ret
+
+func levelCleared():
+	$LevelClearedFailed.levelCleared()
+
+func levelFailed():
+	$LevelClearedFailed.levelFailed()

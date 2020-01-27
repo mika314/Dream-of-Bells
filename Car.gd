@@ -6,7 +6,7 @@ class MoveForward:
 	var car
 	var dest
 	var dir
-	var CAR_SPEED = 1
+	var CAR_SPEED = 2
 	func _init(aCar):
 		car = aCar
 		dir = Vector3(0, 0, -1)
@@ -20,7 +20,7 @@ class MoveForward:
 		return true
 
 class Rotate:
-	var CAR_ROTATION_SPEED = 1
+	var CAR_ROTATION_SPEED = 2
 	var dest
 	var car
 	func _init(aCar, aDest):

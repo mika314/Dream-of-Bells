@@ -4,19 +4,19 @@
 [ext_resource path="res://level selection.gd" type="Script" id=2]
 [ext_resource path="res://Level.gd" type="Script" id=3]
 
-[sub_resource type="Environment" id=2]
+[sub_resource type="Environment" id=1]
 background_mode = 1
 background_color = Color( 0.901961, 1, 0.682353, 1 )
 ambient_light_color = Color( 0.819608, 1, 0.603922, 1 )
 
-[sub_resource type="BoxShape" id=1]
+[sub_resource type="BoxShape" id=2]
 extents = Vector3( 1.89149, 0.08428, 0.522489 )
 
 [node name="level selection" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
 [node name="Camera" parent="." index="1"]
-environment = SubResource( 2 )
+environment = SubResource( 1 )
 
 [node name="Level001" parent="." index="2"]
 script = ExtResource( 3 )
@@ -26,7 +26,7 @@ levelNum = 1
 
 [node name="CollisionShape" type="CollisionShape" parent="Level001/Area" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.57554, 0.0112372, -0.33712 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Level002" parent="." index="3"]
 script = ExtResource( 3 )
@@ -36,7 +36,7 @@ levelNum = 2
 
 [node name="CollisionShape" type="CollisionShape" parent="Level002/Area" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.57554, 0.0112372, -0.33712 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Level003" parent="." index="4"]
 script = ExtResource( 3 )
@@ -46,7 +46,7 @@ levelNum = 3
 
 [node name="CollisionShape" type="CollisionShape" parent="Level003/Area" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.57554, 0.0112372, -0.33712 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Level004" parent="." index="5"]
 script = ExtResource( 3 )
@@ -56,7 +56,7 @@ levelNum = 4
 
 [node name="CollisionShape" type="CollisionShape" parent="Level004/Area" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.57554, 0.0112372, -0.33712 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Level005" parent="." index="6"]
 script = ExtResource( 3 )
@@ -66,7 +66,7 @@ levelNum = 5
 
 [node name="CollisionShape" type="CollisionShape" parent="Level005/Area" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.57554, 0.0112372, -0.33712 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Level006" parent="." index="7"]
 script = ExtResource( 3 )
@@ -76,7 +76,7 @@ levelNum = 6
 
 [node name="CollisionShape" type="CollisionShape" parent="Level006/Area" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.57554, 0.0112372, -0.33712 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Level007" parent="." index="8"]
 script = ExtResource( 3 )
@@ -86,7 +86,7 @@ levelNum = 7
 
 [node name="CollisionShape" type="CollisionShape" parent="Level007/Area" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.57554, 0.0112372, -0.33712 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Level008" parent="." index="9"]
 script = ExtResource( 3 )
@@ -96,7 +96,7 @@ levelNum = 8
 
 [node name="CollisionShape" type="CollisionShape" parent="Level008/Area" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.57554, 0.0112372, -0.33712 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Level009" parent="." index="10"]
 script = ExtResource( 3 )
@@ -106,7 +106,7 @@ levelNum = 9
 
 [node name="CollisionShape" type="CollisionShape" parent="Level009/Area" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.57554, 0.0112372, -0.33712 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Level010" parent="." index="11"]
 script = ExtResource( 3 )
@@ -116,7 +116,7 @@ levelNum = 10
 
 [node name="CollisionShape" type="CollisionShape" parent="Level010/Area" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.57554, 0.0112372, -0.33712 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Level011" parent="." index="12"]
 script = ExtResource( 3 )
@@ -126,7 +126,7 @@ levelNum = 11
 
 [node name="CollisionShape" type="CollisionShape" parent="Level011/Area" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.57554, 0.0112372, -0.33712 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Level012" parent="." index="13"]
 script = ExtResource( 3 )
@@ -136,7 +136,7 @@ levelNum = 12
 
 [node name="CollisionShape" type="CollisionShape" parent="Level012/Area" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.57554, 0.0112372, -0.33712 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Level013" parent="." index="14"]
 script = ExtResource( 3 )
@@ -146,7 +146,7 @@ levelNum = 13
 
 [node name="CollisionShape" type="CollisionShape" parent="Level013/Area" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.57554, 0.0112372, -0.33712 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 [connection signal="click" from="Level001" to="." method="_on_Level_click"]
 [connection signal="hover" from="Level001" to="." method="_on_Level_hover"]
 [connection signal="input_event" from="Level001/Area" to="Level001" method="_on_Area_input_event"]
