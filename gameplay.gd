@@ -1,6 +1,7 @@
 extends Spatial
 
 var levels = [
+# 1
 """
   {
     "map": [
@@ -12,6 +13,7 @@ var levels = [
     "bells": "CDC"
   }
 """,
+# 2
 """
   {
     "map": [
@@ -22,6 +24,129 @@ var levels = [
     "bells": "C"
   }
 """,
+# 3
+"""
+    {
+      "map": [
+        "   ",
+        "  C",
+        "S  ",
+      ],
+      "cmds": "[D]",
+      "bells": "CD"
+    }
+""",
+# 4
+"""
+    {
+      "map": [
+        "     ",
+        "  C E",
+        "S    ",
+      ],
+      "cmds": "[D]]",
+      "bells": "CED"
+    }
+""",
+# 5
+"""
+    {
+      "map": [
+        "S    ]",
+        "   C ]",
+      ],
+      "cmds": "<>",
+      "bells": "CC"
+    }
+""",
+# 6
+"""
+    {
+      "map": [
+        "S    ]",
+        "  DE ]",
+      ],
+      "cmds": "<>-",
+      "bells": "CED"
+    }
+""",
+# 7
+"""
+    {
+      "map": [
+        "]S ]",
+        "D CD",
+        "]  ]",
+      ],
+      "cmds": "}<",
+      "bells": "DDC"
+    }
+""",
+# 8
+"""
+    {
+      "map": [
+        "  ] ]",
+        "S<   ",
+        "  C  ",
+        "  ]>]",
+      ],
+      "cmds": "+{C",
+      "bells": "DEFGAB"
+    }
+""",
+# 9
+"""
+    {
+      "map": [
+        "]>]  ",
+        "S C  ",
+        "] +<]",
+        " ] F ",
+        "] ]  ",
+      ],
+      "cmds": "[]>]",
+      "bells": "CDEF"
+    }
+""",
+# 10
+"""
+    {
+      "map": [
+        "  C      ",
+        "[       [",
+        "-] S<CDE[",
+        " ] C[    ",
+        "         ",
+        "[   [    ",
+      ],
+      "cmds": "[>]{E>",
+      "bells": "CDECCDECC"
+    }
+""",
+# 11
+"""
+    {
+      "map": [
+        "        ",
+        "SCDEFG{]",
+      ],
+      "cmds": "]]CDE",
+      "bells": "CDEFGGFEDC"
+    }
+""",
+# 12
+"""
+    {
+      "map": [
+        "S<+ >+ >+ >+ > ]",
+        " >C-> -> -> ->  ",
+      ],
+      "cmds": "]]]GFE",
+      "bells": "GFEDCCDEFG"
+    }
+""",
+# 13
 """
   {
     "map": [
@@ -33,16 +158,6 @@ var levels = [
     "cmds": "CEE",
     "bells": "CECEG"
   }
-""",
-"""
-{
-  "map": [
-    "]S<+ >+ >+ >+ > ]",
-    "] >C-> -> -> -> ]"
-  ],
-  "cmds": "GFE",
-  "bells": "GFEDCCDEFG"
-}
 """,
 ]
 
@@ -204,6 +319,7 @@ func _on_CmdBlock_removeCmdBlockFrom(cmdBlock):
 func _on_PlayButton_play():
 	if gameMode == GameMode.Play:
 		return
+# warning-ignore:return_value_discarded
 	gameMode = GameMode.Play
 	copyLevel.clear()
 	for y in currentLevel:

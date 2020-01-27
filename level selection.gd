@@ -13,4 +13,5 @@ func _on_Level_hover(level, value: bool):
 
 func _on_Level_click(level):
 	global.selectedLevel = level.levelNum
+# warning-ignore:return_value_discarded
 	get_tree().change_scene("res://gameplay.tscn")
